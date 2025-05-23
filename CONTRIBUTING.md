@@ -7,7 +7,7 @@ Thank you for your interest in contributing to HumanML! We welcome contributions
 1.  **Fork the repository:** Start by forking the main HumanML repository on GitHub.
 2.  **Clone your fork:** Clone your forked repository to your local machine.
     ```bash
-    git clone https://github.com/YOUR_USERNAME/humanml.git
+    git clone https://github.com/rameez-anwar/humanml.git
     cd humanml
     ```
 3.  **Create a branch:** Create a new branch for your feature or bug fix.
