@@ -7,8 +7,8 @@ setup(
     name="humanml",
     version="0.2.0",
     description="A user-friendly machine learning library with automated preprocessing, model selection, training, evaluation, and reinforcement learning capabilities",
-    author="HumanML Team",
-    author_email="info@humanml.ai",
+    author="Rameez Anwar",
+    author_email="rameezmughalrr@gmail.com",
     url="https://github.com/humanml/humanml",
     packages=find_packages(),
     install_requires=[
@@ -18,6 +18,7 @@ setup(
         "matplotlib>=3.2.0",
         "seaborn>=0.10.0",
         "joblib>=0.15.0",
+        "fpdf>=1.7.2",
     ],
     classifiers=[
         "Development Status :: 4 - Beta",
