@@ -46,11 +46,12 @@ class HumanML:
         validation_size: float = 0.2,
         random_state: int = 42,
         n_jobs: int = -1,
-        verbose: bool = True,
+        verbose: bool = False,
         models: Optional[List[str]] = None,
         hyperparameter_tuning: str = "auto",
         cross_validation: int = 5,
-        callbacks: Optional[Dict[str, Callable]] = None
+        callbacks: Optional[Dict[str, Callable]] = None,
+        preference: str = "" # Added preference argument
     ):
         """
         Initialize the HumanML instance.
@@ -67,6 +68,7 @@ class HumanML:
             hyperparameter_tuning: Hyperparameter tuning method ('grid', 'random', 'bayesian', 'rl', or 'auto')
             cross_validation: Number of cross-validation folds
             callbacks: Dictionary of callback functions
+            preference: User preference string (used for specific configurations)
         """
         self.task_type = task_type
         self.output_dir = output_dir
@@ -79,6 +81,7 @@ class HumanML:
         self.hyperparameter_tuning = hyperparameter_tuning
         self.cross_validation = cross_validation
         self.callbacks = callbacks if callbacks is not None else {}
+        self.preference = preference # Store preference
         
         # Create output directory
         os.makedirs(self.output_dir, exist_ok=True)
@@ -245,7 +248,7 @@ class HumanML:
             print(f"✗ Error in fit method: {str(e)}")
             raise
             
-    def predict(self, X: pd.DataFrame) -> np.ndarray:
+    def predict(self, X: Union[pd.DataFrame, List, np.ndarray]) -> np.ndarray:
         """
         Make predictions with the best model.
         
@@ -667,12 +670,6 @@ class HumanML:
             print(f"R2 Score: {self.results['evaluation']['models'][self.best_model_name]['metrics']['r2']:.4f}")
             print(f"RMSE: {self.results['evaluation']['models'][self.best_model_name]['metrics']['rmse']:.4f}")
             
-        print("-" * 80)
-        print("Results saved to:")
-        print(f"  • Report: {os.path.join(self.output_dir, 'reports', 'report.pdf')}")
-        print(f"  • Model: {os.path.join(self.output_dir, 'models', 'best_model.pkl')}")
-        print(f"  • Plots: {self.plots_dir}")
-        print(f"  • Logs: {os.path.join(self.output_dir, 'logs')}")
         print("=" * 80)
         print("\nNext steps:")
         print("  • Use .predict() method to make predictions with the best model")
@@ -804,7 +801,7 @@ class HumanML:
         """
         # Initialize model selector
         self.model_selector = ModelSelector(
-            preference="balanced",  # Use balanced preference by default
+            preference=self.preference,  # Use balanced preference by default
             included_models=self.models,  # Pass included models if specified
             verbose=False,  # Set to False to suppress detailed logs
             n_jobs=self.n_jobs,

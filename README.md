@@ -75,7 +75,7 @@ When initializing HumanML, you can customize its behavior:
 
 ```python
 model = HumanML(
-    preference="balanced",  # Options: "accuracy", "speed", "interpretability", "balanced"
+    preference="speed",  # Options: "accuracy", "speed", "interpretability", "balanced"
     output_dir="humanml_output",  # Directory for outputs
     verbose=True,  # Whether to print detailed information
     random_state=42,  # Random seed for reproducibility
@@ -123,43 +123,6 @@ print(f"Accuracy: {accuracy_score(y_test, predictions)}")
 # Visualize results
 model.plot("confusion_matrix")
 model.plot("roc_curve")
-model.plot("feature_importance")
-```
-
-## Example: Regression
-
-```python
-from humanml import HumanML
-import pandas as pd
-from sklearn.datasets import load_boston
-from sklearn.model_selection import train_test_split
-
-# Load data
-data = load_boston()
-X = pd.DataFrame(data.data, columns=data.feature_names)
-y = pd.Series(data.target)
-
-# Split data
-X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
-
-# Initialize HumanML
-model = HumanML(preference="balanced")
-
-# Fit model
-model.fit(X_train, y_train)
-
-# Make predictions
-predictions = model.predict(X_test)
-
-# Evaluate model
-from sklearn.metrics import r2_score, mean_squared_error
-import numpy as np
-print(f"R²: {r2_score(y_test, predictions)}")
-print(f"RMSE: {np.sqrt(mean_squared_error(y_test, predictions))}")
-
-# Visualize results
-model.plot("residuals")
-model.plot("actual_vs_predicted")
 model.plot("feature_importance")
 ```
 

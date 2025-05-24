@@ -5,7 +5,7 @@ from setuptools import setup, find_packages
 
 setup(
     name="humanml",
-    version="0.2.0",
+    version="0.3.0",
     description="A user-friendly machine learning library with automated preprocessing, model selection, training, evaluation, and reinforcement learning capabilities",
     author="Rameez Anwar",
     author_email="rameezmughalrr@gmail.com",
